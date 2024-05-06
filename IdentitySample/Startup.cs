@@ -1,4 +1,5 @@
 using IdentitySample.Models.Context;
+using IdentitySample.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -53,6 +54,8 @@ namespace IdentitySample
                 .AddErrorDescriber<PersianIdentityErrorDescriber>(); ;
 
             #endregion
+
+            services.AddScoped<IMessageSender, MessageSender>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
-﻿using IdentitySample.ViewModels.Account;
+﻿using IdentitySample.Repositories;
+using IdentitySample.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -9,11 +10,13 @@ namespace IdentitySample.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IMessageSender _messageSender;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IMessageSender messageSender)
         {
             _userManager = userManager;
             _signInManager = signInManager; 
+            _messageSender = messageSender;
         }
 
         [HttpGet]
@@ -30,14 +33,23 @@ namespace IdentitySample.Controllers
                 var user = new IdentityUser()
                 {
                     UserName = regsiter.UserName,
-                    Email = regsiter.Email,
-                    EmailConfirmed = true
+                    Email = regsiter.Email
                 };
 
                 var result = await _userManager.CreateAsync(user, regsiter.Password);
 
                 if (result.Succeeded)
                 {
+                    #region Email Confirma 
+
+                    var emailConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                    var emailMessage = Url.Action("ConfirmEmail", "Account", new { username = user.UserName, token = emailConfirmationToken }, Request.Scheme);
+
+                    await _messageSender.SendEmailAsync(regsiter.Email, "Email confirmation", emailMessage);
+
+                    #endregion
+
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -132,5 +144,24 @@ namespace IdentitySample.Controllers
             return Json("نام کاربری وارد شده از قبل موجود است");
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string userName, string token)
+        {
+            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(token))
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.FindByNameAsync(userName);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user, token);
+
+            return Content(result.Succeeded ? "Email Confirmed" : "Email Not Confirmed");
+        }
     }
 }
