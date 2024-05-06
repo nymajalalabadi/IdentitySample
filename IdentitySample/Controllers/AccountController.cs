@@ -107,5 +107,30 @@ namespace IdentitySample.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        public async Task<IActionResult> IsEmailInUse(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return Json(true);
+            }
+
+            return Json("ایمیل وارد شده از قبل موجود است");
+        }
+
+        public async Task<IActionResult> IsUserNameInUse(string userName)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+
+            if (user == null)
+            {
+                return Json(true);
+            }
+
+            return Json("نام کاربری وارد شده از قبل موجود است");
+        }
+
     }
 }
