@@ -120,6 +120,8 @@ namespace IdentitySample.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> IsEmailInUse(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
@@ -132,6 +134,8 @@ namespace IdentitySample.Controllers
             return Json("ایمیل وارد شده از قبل موجود است");
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> IsUserNameInUse(string userName)
         {
             var user = await _userManager.FindByNameAsync(userName);
