@@ -7,13 +7,15 @@ namespace IdentitySample.ViewModels.Account
     {
         [Required]
         [Display(Name = "نام کاربری")]
-        [Remote("IsUserNameInUse", "Account")]
+        [Remote("IsUserNameInUse", "Account", HttpMethod = "POST",
+            AdditionalFields = "__RequestVerificationToken")]
         public string UserName { get; set; }
 
         [Required]
         [Display(Name = "ایمیل")]
         [EmailAddress]
-        [Remote("IsEmailInUse", "Account")]
+        [Remote("IsEmailInUse", "Account", HttpMethod = "POST",
+            AdditionalFields = "__RequestVerificationToken")]
         public string Email { get; set; }
 
         [Required]
