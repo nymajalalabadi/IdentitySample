@@ -37,6 +37,18 @@ namespace IdentitySample
 
             #endregion
 
+            #region google
+
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = "";
+                    options.ClientSecret = "";
+                });
+
+
+            #endregion
+
             #region Identity
 
             services.AddIdentity<IdentityUser, IdentityRole>(options =>
