@@ -1,0 +1,35 @@
+﻿@model IdentitySample.ViewModels.ManageUser.AddUserToRoleViewModel
+@{
+    ViewData["Title"] = "AddUserToRole";
+}
+
+<h1>AddUserToRole</h1>
+
+
+@if (!Model.UserRoles.Any())
+{
+    <h1>هیچ مقامی یافت نشد</h1>
+}
+else
+{
+    <form asp-controller="ManageUser" asp-action="AddUserToRole" method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+
+        @foreach (var item in Model.UserRoles)
+        {
+            <div class="form-group">
+                <input asp-for="@item.IsSelected" />
+
+                <label>@item.RoleName</label>
+
+                <input type="hidden" asp-for="@item.RoleName" />
+            </div>
+        }
+
+        <input type="hidden" asp-for="@Model.UserId" />
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+}
+
+

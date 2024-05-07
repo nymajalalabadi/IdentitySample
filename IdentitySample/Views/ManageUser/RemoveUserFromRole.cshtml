@@ -1,0 +1,30 @@
+﻿@model IdentitySample.ViewModels.ManageUser.AddUserToRoleViewModel
+@{
+    ViewData["Title"] = "DeleteUserToRole";
+}
+
+<h1>DeleteUserToRole</h1>
+
+<form asp-controller="ManageUser" asp-action="RemoveUserFromRole" method="post">
+    <div asp-validation-summary="ModelOnly"></div>
+    @if (!Model.UserRoles.Any())
+    {
+        <h1>هیچ مقامی یافت نشد</h1>
+    }
+    else
+    {
+
+        @foreach (var item in Model.UserRoles)
+        {
+            <div class="form-group">
+                <input asp-for="@item.IsSelected" />
+                <label>@item.RoleName</label>
+
+                <input type="hidden" asp-for="@item.RoleName" />
+            </div>
+        }
+    }
+
+    <input type="hidden" asp-for="@Model.UserId" />
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
