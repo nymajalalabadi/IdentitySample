@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace IdentitySample.Controllers
 {
+    [Authorize (Roles = "Admin")]
     public class EmployeeController : Controller
     {
         private readonly AppDbContext _context;

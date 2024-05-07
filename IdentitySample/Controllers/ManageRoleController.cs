@@ -74,23 +74,7 @@ namespace IdentitySample.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> EditRole(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                return NotFound();
-            }
-
-            var role = await _roleManager.FindByIdAsync(id);
-
-            if (role == null)
-            {
-                return NotFound();
-            }
-
-            return View(role);
-        }
+        
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -120,6 +104,24 @@ namespace IdentitySample.Controllers
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
+            }
+
+            return View(role);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditRole(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var role = await _roleManager.FindByIdAsync(id);
+
+            if (role == null)
+            {
+                return NotFound();
             }
 
             return View(role);
