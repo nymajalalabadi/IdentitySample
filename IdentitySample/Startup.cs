@@ -67,6 +67,18 @@ namespace IdentitySample
 
             #endregion
 
+            #region Claim
+
+            services.AddAuthorization(option =>
+            {
+                option.AddPolicy("EmployeeListPolicy",
+                    policy => policy
+                        .RequireClaim(ClaimTypesStore.EmployeeList, false.ToString(), true.ToString()));
+            });
+
+
+            #endregion
+
             services.AddScoped<IMessageSender, MessageSender>();
         }
 
