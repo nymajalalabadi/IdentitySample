@@ -330,6 +330,32 @@ namespace IdentitySample.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> RemoveUserFromClaim(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var user = await _userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var userClaims = await _userManager.GetClaimsAsync(user);
+
+            var validClaims = userClaims.Select(c => new ClaimsViewModel(c.Type)).ToList();
+
+            var model = new AddOrRemoveClaimViewModel(id, validClaims);
+
+            return View(model);
+        }
+
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveUserFromClaim(AddOrRemoveClaimViewModel model)

@@ -1,0 +1,31 @@
+﻿@model IdentitySample.ViewModels.ManageUser.AddOrRemoveClaimViewModel
+
+@{
+    ViewData["Title"] = "RemoveUserFromClaim";
+}
+
+<h1>RemoveUserFromClaim</h1>
+
+@if (!Model.UserClaims.Any())
+{
+    <h1>یافت نشد "Claim" هیج</h1>
+}
+else
+{
+    <form asp-controller="ManageUser" asp-action="RemoveUserFromClaim" method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+
+        @foreach (var claims in Model.UserClaims)
+        {
+            <div class="form-group">
+                <input asp-for="@claims.IsSelected" />
+                <label>@claims.ClaimType</label>
+
+                <input type="hidden" asp-for="@claims.ClaimType" />
+            </div>
+        }
+
+        <input type="hidden" asp-for="@Model.UserId" />
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+}
