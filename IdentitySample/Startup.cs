@@ -72,10 +72,8 @@ namespace IdentitySample
             services.AddAuthorization(option =>
             {
                 option.AddPolicy("EmployeeListPolicy",
-                    policy => policy
-                        .RequireClaim(ClaimTypesStore.EmployeeList, false.ToString(), true.ToString()));
+                    policy => policy.RequireClaim(ClaimTypesStore.EmployeeList, false.ToString(), true.ToString()));
             });
-
 
             #endregion
 
