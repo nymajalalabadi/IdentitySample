@@ -1,5 +1,6 @@
 using IdentitySample.Models.Context;
 using IdentitySample.Repositories;
+using IdentitySample.Security.Default;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -77,6 +78,9 @@ namespace IdentitySample
 
                 option.AddPolicy("ClaimOrRole", policy =>
                      policy.RequireAssertion(ClaimOrRole));
+
+                option.AddPolicy("ClaimRequirement", policy =>
+                    policy.Requirements.Add(new ClaimRequirement(ClaimTypesStore.EmployeeList, true.ToString())));
             });
 
             #endregion
