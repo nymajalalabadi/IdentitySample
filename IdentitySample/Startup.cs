@@ -75,8 +75,8 @@ namespace IdentitySample
                 option.AddPolicy("EmployeeListPolicy",
                     policy => policy.RequireClaim(ClaimTypesStore.EmployeeList, false.ToString(), true.ToString()));
 
-                option.AddPolicy("ClaimOrRole",
-                    policy => policy.RequireAssertion(context => context.User.HasClaim(ClaimTypesStore.EmployeeList, true.ToString()) || context.User.IsInRole("Admin")));
+                option.AddPolicy("ClaimOrRole", policy =>
+                     policy.RequireAssertion(ClaimOrRole));
             });
 
             #endregion
