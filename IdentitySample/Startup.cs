@@ -1,5 +1,6 @@
 using IdentitySample.Models.Context;
 using IdentitySample.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -73,6 +74,9 @@ namespace IdentitySample
             {
                 option.AddPolicy("EmployeeListPolicy",
                     policy => policy.RequireClaim(ClaimTypesStore.EmployeeList, false.ToString(), true.ToString()));
+
+                option.AddPolicy("ClaimOrRole",
+                    policy => policy.RequireAssertion(context => context.User.HasClaim(ClaimTypesStore.EmployeeList, true.ToString()) || context.User.IsInRole("Admin")));
             });
 
             #endregion
@@ -107,6 +111,12 @@ namespace IdentitySample
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+        }
+
+        private bool ClaimOrRole(AuthorizationHandlerContext context)
+        {
+           return context.User.HasClaim(ClaimTypesStore.EmployeeList, true.ToString()) ||
+              context.User.IsInRole("Admin");
         }
     }
 }
