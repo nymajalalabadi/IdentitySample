@@ -44,12 +44,12 @@ namespace IdentitySample.Controllers
         [HttpGet]
         public IActionResult CreateRole()
         {
-            var allMvcNames =
-                _memoryCache.GetOrCreate("AreaAndActionAndControllerNamesList", p =>
+            var allMvcNames = _memoryCache.GetOrCreate("AreaAndActionAndControllerNamesList", p =>
                 {
                     p.AbsoluteExpiration = DateTimeOffset.MaxValue;
                     return _utilities.AreaAndActionAndControllerNamesList();
                 });
+
             var model = new CreateRoleViewModel()
             {
                 ActionAndControllerNames = allMvcNames
@@ -64,21 +64,20 @@ namespace IdentitySample.Controllers
             if (ModelState.IsValid)
             {
                 var role = new IdentityRole(model.RoleName);
+
                 var result = await _roleManager.CreateAsync(role);
+
                 if (result.Succeeded)
                 {
-                    var requestRoles =
-                        model.ActionAndControllerNames.Where(c => c.IsSelected).ToList();
+                    var requestRoles = model.ActionAndControllerNames.Where(c => c.IsSelected).ToList();
+
                     foreach (var requestRole in requestRoles)
                     {
-                        var areaName = (string.IsNullOrEmpty(requestRole.AreaName)) ?
-                            "NoArea" : requestRole.AreaName;
+                        var areaName = (string.IsNullOrEmpty(requestRole.AreaName)) ? "NoArea" : requestRole.AreaName;
 
-                        await _roleManager.AddClaimAsync(role,
-                            new Claim($"{areaName}|{requestRole.ControllerName}|{requestRole.ActionName}",
+                        await _roleManager.AddClaimAsync(role, new Claim($"{areaName}|{requestRole.ControllerName}|{requestRole.ActionName}",
                                 true.ToString()));
                     }
-
 
                     return RedirectToAction("Index");
                 }
@@ -91,7 +90,6 @@ namespace IdentitySample.Controllers
 
             return View(model);
         }
-
 
     }
 
