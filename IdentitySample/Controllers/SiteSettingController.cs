@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Linq;
+using IdentitySample.ViewModels.SiteSetting;
 
 namespace IdentitySample.Controllers
 {
@@ -22,14 +23,14 @@ namespace IdentitySample.Controllers
         public IActionResult Index()
         {
             var model = _dbContext.SiteSettings.ToList();
+
             return View(model);
         }
 
         [HttpGet]
         public IActionResult RoleValidationGuid()
         {
-            var roleValidationGuidSiteSetting =
-                _dbContext.SiteSettings.FirstOrDefault(t => t.Key == "RoleValidationGuid");
+            var roleValidationGuidSiteSetting = _dbContext.SiteSettings.FirstOrDefault(t => t.Key == "RoleValidationGuid");
 
             var model = new RoleValidationGuidViewModel()
             {
