@@ -44,8 +44,7 @@ namespace IdentitySample.Controllers
         [HttpPost]
         public IActionResult RoleValidationGuid(RoleValidationGuidViewModel model)
         {
-            var roleValidationGuidSiteSetting =
-                _dbContext.SiteSettings.FirstOrDefault(t => t.Key == "RoleValidationGuid");
+            var roleValidationGuidSiteSetting = _dbContext.SiteSettings.FirstOrDefault(t => t.Key == "RoleValidationGuid");
 
             if (roleValidationGuidSiteSetting == null)
             {
@@ -62,7 +61,9 @@ namespace IdentitySample.Controllers
                 roleValidationGuidSiteSetting.LastTimeChanged = DateTime.Now;
                 _dbContext.Update(roleValidationGuidSiteSetting);
             }
+
             _dbContext.SaveChanges();
+
             _memoryCache.Remove("RoleValidationGuid");
 
             return RedirectToAction("Index");

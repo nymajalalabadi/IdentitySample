@@ -85,6 +85,7 @@ namespace IdentitySample
 
             #endregion
 
+            services.AddMemoryCache();
             services.AddScoped<IMessageSender, MessageSender>();
             services.AddSingleton<IAuthorizationHandler, ClaimHandler>();
         }
