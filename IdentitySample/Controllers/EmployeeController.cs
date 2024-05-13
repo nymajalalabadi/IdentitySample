@@ -24,7 +24,8 @@ namespace IdentitySample.Controllers
         // GET: Employee
         //[AllowAnonymous]
         //[Authorize(Roles = "Admin")]
-        [Authorize(Policy = "EmployeeListPolicy")]
+        //[Authorize(Policy = "EmployeeListPolicy")]
+        [Authorize(Policy = "DynamicRole")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Employees.ToListAsync());

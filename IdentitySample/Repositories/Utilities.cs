@@ -104,8 +104,7 @@ namespace IdentitySample.Repositories
 
                 _dbContext.SaveChanges();
 
-                roleValidationGuid =
-                    _dbContext.SiteSettings.SingleOrDefault(s => s.Key == "RoleValidationGuid")?.Value;
+                roleValidationGuid = _dbContext.SiteSettings.SingleOrDefault(s => s.Key == "RoleValidationGuid")?.Value;
             }
 
             return roleValidationGuid;

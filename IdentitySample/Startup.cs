@@ -82,6 +82,9 @@ namespace IdentitySample
 
                 option.AddPolicy("ClaimRequirement", policy =>
                     policy.Requirements.Add(new ClaimRequirement(ClaimTypesStore.EmployeeList, true.ToString())));
+
+                option.AddPolicy("DynamicRole", policy =>
+                    policy.Requirements.Add(new DynamicRoleRequirement()));
             });
 
             #endregion
