@@ -91,8 +91,7 @@ namespace IdentitySample.Repositories
 
         public string DataBaseRoleValidationGuid()
         {
-            var roleValidationGuid =
-                _dbContext.SiteSettings.SingleOrDefault(s => s.Key == "RoleValidationGuid")?.Value;
+            var roleValidationGuid = _dbContext.SiteSettings.SingleOrDefault(s => s.Key == "RoleValidationGuid")?.Value;
 
             while (roleValidationGuid == null)
             {

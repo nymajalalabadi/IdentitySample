@@ -1,6 +1,7 @@
 using IdentitySample.Models.Context;
 using IdentitySample.Repositories;
 using IdentitySample.Security.Default;
+using IdentitySample.Security.DynamicRole;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -86,9 +87,11 @@ namespace IdentitySample
             #endregion
 
             services.AddMemoryCache();
+            services.AddHttpContextAccessor();
             services.AddTransient<IUtilities, Utilities>();
             services.AddScoped<IMessageSender, MessageSender>();
             services.AddSingleton<IAuthorizationHandler, ClaimHandler>();
+            services.AddSingleton<IAuthorizationHandler, DynamicRoleHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
