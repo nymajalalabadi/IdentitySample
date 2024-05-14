@@ -79,6 +79,10 @@ namespace IdentitySample
                 options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
             });
 
+            services.Configure<SecurityStampValidatorOptions>(option =>
+            {
+                option.ValidationInterval = TimeSpan.FromMinutes(30);
+            });
 
             #region Claim
 
