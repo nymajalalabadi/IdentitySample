@@ -2,6 +2,7 @@ using IdentitySample.Models.Context;
 using IdentitySample.Repositories;
 using IdentitySample.Security.Default;
 using IdentitySample.Security.DynamicRole;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -69,6 +70,15 @@ namespace IdentitySample
                 .AddErrorDescriber<PersianIdentityErrorDescriber>(); ;
 
             #endregion
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.AccessDeniedPath = "/AccessDenied";
+                options.Cookie.Name = "IdentityProj";
+                options.LoginPath = "/Login";
+                options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
+            });
+
 
             #region Claim
 

@@ -38,8 +38,13 @@ namespace IdentitySample.Security.DynamicRole
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, DynamicRoleRequirement requirement)
         {
             var httpContext = _contextAccessor.HttpContext;
+
             var userId = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(userId)) return;
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return;
+            }
 
             var dbRoleValidationGuid = _memoryCache.GetOrCreate("RoleValidationGuid", p =>
             {
