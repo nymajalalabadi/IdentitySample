@@ -1,4 +1,5 @@
-﻿using IdentitySample.Repositories;
+﻿using IdentitySample.Models;
+using IdentitySample.Repositories;
 using IdentitySample.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,11 @@ namespace IdentitySample.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IMessageSender _messageSender;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IMessageSender messageSender)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IMessageSender messageSender)
         {
             _userManager = userManager;
             _signInManager = signInManager; 
@@ -32,10 +33,11 @@ namespace IdentitySample.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser()
+                var user = new ApplicationUser()
                 {
                     UserName = regsiter.UserName,
-                    Email = regsiter.Email
+                    Email = regsiter.Email,
+                    City = "Mahabad"
                 };
 
                 var result = await _userManager.CreateAsync(user, regsiter.Password);
@@ -234,11 +236,12 @@ namespace IdentitySample.Controllers
                 {
                     var userName = email.Split('@')[0];
 
-                    user = new IdentityUser()
+                    user = new ApplicationUser()
                     {
                         UserName = (userName.Length <= 10 ? userName : userName.Substring(0, 10)),
                         Email = email,
-                        EmailConfirmed = true
+                        EmailConfirmed = true,
+                        City = "Mahabad"
                     };
 
                     await _userManager.CreateAsync(user);

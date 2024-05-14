@@ -1,3 +1,4 @@
+using IdentitySample.Models;
 using IdentitySample.Models.Context;
 using IdentitySample.Repositories;
 using IdentitySample.Security.Default;
@@ -55,7 +56,7 @@ namespace IdentitySample
 
             #region Identity
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequiredUniqueChars = 0;
 

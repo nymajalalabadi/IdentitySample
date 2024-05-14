@@ -1,4 +1,5 @@
-﻿using IdentitySample.Repositories;
+﻿using IdentitySample.Models;
+using IdentitySample.Repositories;
 using IdentitySample.ViewModels.ManageUser;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,10 @@ namespace IdentitySample.Controllers
 {
     public class ManageUserController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
-        public ManageUserController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public ManageUserController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
