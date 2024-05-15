@@ -380,7 +380,7 @@ namespace IdentitySample.Controllers
                 var resetPasswordUrl = Url.Action("ResetPassword", "Account",
                     new { email = user.Email, token = resetPasswordToken }, Request.Scheme);
 
-                // await _messageSender.SendEmailAsync(user.Email, "reset password link", resetPasswordUrl);
+                //await _messageSender.SendEmailAsync(user.Email, "reset password link", resetPasswordUrl);
 
                 return View("Login", loginViewModel);
             }
