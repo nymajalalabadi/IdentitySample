@@ -3,6 +3,8 @@ using IdentitySample.Models.Context;
 using IdentitySample.Repositories;
 using IdentitySample.Security.Default;
 using IdentitySample.Security.DynamicRole;
+using IdentitySample.Security.PhoneTotp;
+using IdentitySample.Security.PhoneTotp.Providers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -110,6 +112,12 @@ namespace IdentitySample
             services.AddScoped<IMessageSender, MessageSender>();
             services.AddSingleton<IAuthorizationHandler, ClaimHandler>();
             services.AddSingleton<IAuthorizationHandler, DynamicRoleHandler>();
+
+            services.AddTransient<IPhoneTotpProvider, PhoneTotpProvider>();
+            services.Configure<PhoneTotpOptions>(options =>
+            {
+                options.StepInSeconds = 30;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

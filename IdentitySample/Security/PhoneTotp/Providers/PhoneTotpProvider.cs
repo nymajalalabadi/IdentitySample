@@ -7,6 +7,7 @@ namespace IdentitySample.Security.PhoneTotp.Providers
     public class PhoneTotpProvider : IPhoneTotpProvider
     {
         private Totp _totp;
+
         private readonly PhoneTotpOptions _options;
 
         public PhoneTotpProvider(IOptions<PhoneTotpOptions> options)
@@ -28,6 +29,7 @@ namespace IdentitySample.Security.PhoneTotp.Providers
             CreateTotp(secretKey);
 
             var isTotpCodeValid = _totp.VerifyTotp(totpCode, out _);
+
             if (isTotpCodeValid)
             {
                 return new PhoneTotpResult()
