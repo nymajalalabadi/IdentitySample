@@ -119,10 +119,25 @@ namespace IdentitySample.Controllers
 
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, true);
+                //var result = await _signInManager.PasswordSignInAsync(login.UserName, login.Password, login.RememberMe, true);
+
+                var user = await _userManager.FindByNameAsync(login.UserName);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("", "رمزعبور یا نام کاربری اشتباه است");
+                    return View(login);
+                }
+
+                var result = await _signInManager.CheckPasswordSignInAsync(user, login.Password, true);
 
                 if (result.Succeeded)
                 {
+                    await _signInManager.SignInWithClaimsAsync(user, login.RememberMe, new List<Claim>()
+                    {
+                        new Claim("UserCity",user.City ?? "")
+                    });
+
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
                     {
                         return Redirect(returnUrl);
@@ -130,6 +145,7 @@ namespace IdentitySample.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
+
 
                 if (result.IsLockedOut)
                 {
