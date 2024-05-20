@@ -13,12 +13,17 @@ namespace IdentitySample.Authorization.ClaimBasedAuthorization.Utilities.MvcName
         public MvcUtilities(IActionDescriptorCollectionProvider actionDescriptorCollectionProvider)
         {
             var mvcInfo = new List<MvcNamesModel>();
+
             var mvcInfoForActionsThatRequireClaimBasedAuthorization = new List<MvcNamesModel>();
 
             var actionDescriptors = actionDescriptorCollectionProvider.ActionDescriptors.Items;
+
             foreach (var actionDescriptor in actionDescriptors)
             {
-                if (!(actionDescriptor is ControllerActionDescriptor descriptor)) continue;
+                if (!(actionDescriptor is ControllerActionDescriptor descriptor))
+                {
+                    continue;
+                }
 
                 var controllerTypeInfo = descriptor.ControllerTypeInfo;
 
@@ -32,19 +37,22 @@ namespace IdentitySample.Authorization.ClaimBasedAuthorization.Utilities.MvcName
                     claimToAuthorize));
 
                 if (!string.IsNullOrWhiteSpace(claimToAuthorize))
+                {
                     mvcInfoForActionsThatRequireClaimBasedAuthorization.Add(new MvcNamesModel(
                         controllerTypeInfo.GetCustomAttribute<AreaAttribute>()?.RouteValue,
                         descriptor.ControllerName,
                         descriptor.ActionName,
                         claimToAuthorize));
+                }
             }
 
             MvcInfo = ImmutableHashSet.CreateRange(mvcInfo);
-            MvcInfoForActionsThatRequireClaimBasedAuthorization =
-                ImmutableHashSet.CreateRange(mvcInfoForActionsThatRequireClaimBasedAuthorization);
+
+            MvcInfoForActionsThatRequireClaimBasedAuthorization = ImmutableHashSet.CreateRange(mvcInfoForActionsThatRequireClaimBasedAuthorization);
         }
 
         public ImmutableHashSet<MvcNamesModel> MvcInfo { get; }
+
         public ImmutableHashSet<MvcNamesModel> MvcInfoForActionsThatRequireClaimBasedAuthorization { get; }
     }
 
