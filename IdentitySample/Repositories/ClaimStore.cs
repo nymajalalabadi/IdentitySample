@@ -5,12 +5,14 @@ namespace IdentitySample.Repositories
 {
     public static class ClaimStore
     {
+        public const string UserAccess = nameof(UserAccess);
+
         public static List<Claim> AllClaims = new List<Claim>()
         {
-            new Claim(ClaimTypesStore.EmployeeList, true.ToString()),
-            new Claim(ClaimTypesStore.EmployeeDetails, true.ToString()),
-            new Claim(ClaimTypesStore.EmployeeEdit, true.ToString()),
-            new Claim(ClaimTypesStore.AddEmployee, true.ToString())
+            new Claim(ClaimTypesStore.EmployeeList,true.ToString()),
+            new Claim(ClaimTypesStore.EmployeeDetails,true.ToString()),
+            new Claim(ClaimTypesStore.EmployeeEdit,true.ToString()),
+            new Claim(ClaimTypesStore.AddEmployee,true.ToString())
         };
     }
 
