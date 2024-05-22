@@ -1,3 +1,4 @@
+using IdentitySample.Authorization.ClaimBasedAuthorization;
 using IdentitySample.Models;
 using IdentitySample.Models.Context;
 using IdentitySample.Repositories;
@@ -118,6 +119,9 @@ namespace IdentitySample
             {
                 options.StepInSeconds = 30;
             });
+
+            services.AddClaimBasedAuthorization();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

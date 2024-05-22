@@ -2,7 +2,7 @@
 
 namespace IdentitySample.Authorization.ClaimBasedAuthorization.Utilities.MvcNamesUtilities
 {
-    public class MvcNamesModel
+    public class MvcNamesModel : IEquatable<MvcNamesModel>
     {
         public MvcNamesModel(string areaName, string controllerName, string actionName, string claimToAuthorize)
         {
