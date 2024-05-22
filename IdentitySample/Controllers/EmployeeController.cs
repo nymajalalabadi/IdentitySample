@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using IdentitySample.Models;
 using IdentitySample.Models.Context;
 using Microsoft.AspNetCore.Authorization;
+using IdentitySample.Authorization.ClaimBasedAuthorization.Attributes;
 
 namespace IdentitySample.Controllers
 {
@@ -25,7 +26,8 @@ namespace IdentitySample.Controllers
         //[AllowAnonymous]
         //[Authorize(Roles = "Admin")]
         //[Authorize(Policy = "EmployeeListPolicy")]
-        [Authorize(Policy = "DynamicRole")]
+        //[Authorize(Policy = "DynamicRole")]
+        [ClaimBasedAuthorization("EmployeeIndex")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Employees.ToListAsync());
