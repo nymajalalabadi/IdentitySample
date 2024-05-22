@@ -2,12 +2,12 @@
 using IdentitySample.Models;
 using IdentitySample.Repositories;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace IdentitySample.Authorization.ClaimBasedAuthorization
 {
