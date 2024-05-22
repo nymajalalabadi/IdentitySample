@@ -18,12 +18,13 @@ namespace IdentitySample.Authorization.ClaimBasedAuthorization.Utilities
         public string GetClaimToAuthorize(HttpContext httpContext)
         {
             var areaName = httpContext.GetRouteValue("area")?.ToString();
+
             var controllerName = httpContext.GetRouteValue("controller")?.ToString();
+
             var actionName = httpContext.GetRouteValue("action")?.ToString();
 
             //var claimToAuthorize = _mvcUtilities.MvcInfoForActionsThatRequireClaimBasedAuthorization
-            //    .Where(x => 
-            //        x.AreaName == areaName && x.ControllerName == controllerName && x.ActionName == actionName)
+            //    .Where(x => x.AreaName == areaName && x.ControllerName == controllerName && x.ActionName == actionName)
             //    .SingleOrDefault();
 
             _mvcUtilities.MvcInfoForActionsThatRequireClaimBasedAuthorization
@@ -34,5 +35,4 @@ namespace IdentitySample.Authorization.ClaimBasedAuthorization.Utilities
         }
 
     }
-
 }

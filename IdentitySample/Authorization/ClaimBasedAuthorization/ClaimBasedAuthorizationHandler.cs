@@ -31,6 +31,7 @@ namespace IdentitySample.Authorization.ClaimBasedAuthorization
             if (string.IsNullOrWhiteSpace(claimToAuthorize))
             {
                 context.Succeed(requirement);
+
                 return Task.CompletedTask;
             }
 
