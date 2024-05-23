@@ -9,6 +9,7 @@ using IdentitySample.Models;
 using IdentitySample.Models.Context;
 using Microsoft.AspNetCore.Authorization;
 using IdentitySample.Authorization.ClaimBasedAuthorization.Attributes;
+using IdentitySample.Authorization.ClaimBasedAuthorization.MvcUserAccessClaims;
 
 namespace IdentitySample.Controllers
 {
@@ -27,13 +28,14 @@ namespace IdentitySample.Controllers
         //[Authorize(Roles = "Admin")]
         //[Authorize(Policy = "EmployeeListPolicy")]
         //[Authorize(Policy = "DynamicRole")]
-        [ClaimBasedAuthorization("EmployeeIndex")]
+        [ClaimBasedAuthorization(EmployeeControllerClaimValues.EmployeeIndex)]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Employees.ToListAsync());
         }
 
         // GET: Employee/Details/5
+        [ClaimBasedAuthorization(EmployeeControllerClaimValues.EmployeeDetails)]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)

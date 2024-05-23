@@ -5,6 +5,17 @@ namespace IdentitySample.Authorization.ClaimBasedAuthorization.MvcUserAccessClai
 {
     public static class EmployeeControllerClaimValues
     {
+        #region consractor
+
+        static EmployeeControllerClaimValues()
+        {
+            AllClaimValues = MvcClaimValuesUtilities.GetPersianAndEnglishClaimValues(typeof(EmployeeControllerClaimValues))
+                    .ToList()
+                    .AsReadOnly();
+        }
+
+        #endregion
+
         public const string EmployeeIndex = nameof(EmployeeIndex);
         public const string EmployeeIndexPersian = "صفحه اصلی مدیریت کارکنان";
 
@@ -13,12 +24,5 @@ namespace IdentitySample.Authorization.ClaimBasedAuthorization.MvcUserAccessClai
 
         public static ReadOnlyCollection<(string claimValueEnglish, string claimValuePersian)> AllClaimValues;
 
-        static EmployeeControllerClaimValues()
-        {
-            AllClaimValues = MvcClaimValuesUtilities.GetPersianAndEnglishClaimValues(typeof(EmployeeControllerClaimValues))
-                    .ToList()
-                    .AsReadOnly();
-        }
     }
-
 }
