@@ -22,7 +22,7 @@ namespace IdentitySample.Authorization.ClaimBasedAuthorization.MvcUserAccessClai
         public const string EmployeeDetails = nameof(EmployeeDetails);
         public const string EmployeeDetailsPersian = "جزئیات کارکنان";
 
-        public static ReadOnlyCollection<(string claimValueEnglish, string claimValuePersian)> AllClaimValues;
+        public static readonly ReadOnlyCollection<(string claimValueEnglish, string claimValuePersian)> AllClaimValues;
 
     }
 }
