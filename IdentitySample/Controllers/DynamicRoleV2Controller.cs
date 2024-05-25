@@ -85,6 +85,7 @@ namespace IdentitySample.Controllers
             return model;
         }
 
+
         private async Task EditUserAccessInternalAsync(EditUserAccessViewModel model)
         {
             var userClaims = await _dbContext.UserClaims
@@ -103,6 +104,7 @@ namespace IdentitySample.Controllers
 
             await _dbContext.SaveChangesAsync();
         }
+
 
         private bool IsEditUserAccessModelValid(EditUserAccessViewModel model)
         {
