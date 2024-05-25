@@ -26,7 +26,10 @@ namespace IdentitySample.Controllers
         [HttpGet]
         public async Task<IActionResult> EditUserAccess(string id)
         {
-            if (!await _userManager.Users.AnyAsync(u => u.Id == id)) return NotFound();
+            if (!await _userManager.Users.AnyAsync(u => u.Id == id))
+            {
+                return NotFound();
+            }
 
             var model = await PrepareEditUserAccessViewModelAsync(id);
 
@@ -36,7 +39,10 @@ namespace IdentitySample.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUserAccess(EditUserAccessViewModel model)
         {
-            if (!await _userManager.Users.AnyAsync(u => u.Id == model.UserId)) return NotFound();
+            if (!await _userManager.Users.AnyAsync(u => u.Id == model.UserId))
+            {
+                return NotFound();
+            }
 
             if (ModelState.IsValid)
             {
