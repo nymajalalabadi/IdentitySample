@@ -114,9 +114,8 @@ namespace IdentitySample.Controllers
 
         private bool IsEditUserAccessModelValid(EditUserAccessViewModel model)
         {
-            return model.UserClaimValues.All(c =>
-                AllControllersClaimValues.AllClaimValues.Any(validClaim =>
-                    validClaim.claimValueEnglish == c.ClaimValue));
+            return model.UserClaimValues.All(c => AllControllersClaimValues.AllClaimValues.Any(validClaim => 
+            validClaim.claimValueEnglish == c.ClaimValue));
         }
 
         #endregion

@@ -28,7 +28,7 @@ namespace IdentitySample.Security.PhoneTotp.Providers
         {
             CreateTotp(secretKey);
 
-            var isTotpCodeValid = _totp.VerifyTotp(totpCode, out _);
+            var isTotpCodeValid = _totp.VerifyTotp(totpCode, out _, VerificationWindow.RfcSpecifiedNetworkDelay);
 
             if (isTotpCodeValid)
             {
