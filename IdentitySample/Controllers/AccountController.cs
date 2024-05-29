@@ -632,6 +632,8 @@ namespace IdentitySample.Controllers
                             new Claim("UserCity",user.City ?? "")
                         });
 
+                        TempData.Remove("PTC");
+
                         return RedirectToAction("Index", "Home");
                     }
 
