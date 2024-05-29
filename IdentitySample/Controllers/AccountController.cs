@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -519,7 +520,12 @@ namespace IdentitySample.Controllers
                     }
                 }
 
-                var secretKey = Guid.NewGuid().ToString();
+                byte[] secretKey;
+                using (var rng = new RNGCryptoServiceProvider())
+                {
+                    secretKey = new byte[32];
+                    rng.GetBytes(secretKey);
+                }
 
                 var totpCode = _phoneTotpProvider.GenerateTotp(secretKey);
 
@@ -645,6 +651,5 @@ namespace IdentitySample.Controllers
             }
             return View(model);
         }
-
     }
 }

@@ -16,7 +16,7 @@ namespace IdentitySample.Security.PhoneTotp.Providers
         }
 
         /// <inheritdoc/>
-        public string GenerateTotp(string secretKey)
+        public string GenerateTotp(byte[] secretKey)
         {
             CreateTotp(secretKey);
 
@@ -24,7 +24,7 @@ namespace IdentitySample.Security.PhoneTotp.Providers
         }
 
         /// <inheritdoc/>
-        public PhoneTotpResult VerifyTotp(string secretKey, string totpCode)
+        public PhoneTotpResult VerifyTotp(byte[] secretKey, string totpCode)
         {
             CreateTotp(secretKey);
 
@@ -45,9 +45,9 @@ namespace IdentitySample.Security.PhoneTotp.Providers
             };
         }
 
-        private void CreateTotp(string secretKey)
+        private void CreateTotp(byte[] secretKey)
         {
-            _totp = new Totp(Encoding.UTF8.GetBytes(secretKey), _options.StepInSeconds);
+            _totp = new Totp(secretKey, _options.StepInSeconds);
         }
     }
 }

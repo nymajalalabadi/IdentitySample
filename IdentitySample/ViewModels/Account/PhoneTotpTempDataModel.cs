@@ -4,7 +4,7 @@ namespace IdentitySample.ViewModels.Account
 {
     public class PhoneTotpTempDataModel
     {
-        public string SecretKey { get; set; }
+        public byte[] SecretKey { get; set; }
 
         public string PhoneNumber { get; set; }
 
