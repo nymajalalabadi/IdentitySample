@@ -324,6 +324,11 @@ namespace IdentitySample.Controllers
             if (result.Succeeded)
             {
                 await _userImmediateActionsService.RefreshCookieAsync(model.UserId);
+
+                //await _userImmediateActionsService.SignOutAsync(model.UserId);
+                //await _userManager.UpdateSecurityStampAsync(user);
+
+
                 return RedirectToAction("index");
             }
 
