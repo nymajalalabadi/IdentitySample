@@ -1,6 +1,7 @@
 ﻿using IdentitySample.Models;
 using IdentitySample.Repositories;
 using IdentitySample.ViewModels.ManageUser;
+using Kaktos.UserImmediateActions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,11 +15,13 @@ namespace IdentitySample.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IUserImmediateActionsService _userImmediateActionsService;
 
-        public ManageUserController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+        public ManageUserController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IUserImmediateActionsService userImmediateActionsService)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _userImmediateActionsService = userImmediateActionsService;
         }
 
         [HttpGet]
@@ -320,6 +323,7 @@ namespace IdentitySample.Controllers
 
             if (result.Succeeded)
             {
+                await _userImmediateActionsService.RefreshCookieAsync(model.UserId);
                 return RedirectToAction("index");
             }
 

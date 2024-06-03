@@ -6,6 +6,7 @@ using IdentitySample.Security.Default;
 using IdentitySample.Security.DynamicRole;
 using IdentitySample.Security.PhoneTotp;
 using IdentitySample.Security.PhoneTotp.Providers;
+using Kaktos.UserImmediateActions.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -71,7 +72,8 @@ namespace IdentitySample
             })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders()
-                .AddErrorDescriber<PersianIdentityErrorDescriber>(); ;
+                .AddErrorDescriber<PersianIdentityErrorDescriber>()
+                .AddUserImmediateActions();
 
             #endregion
 
@@ -143,6 +145,9 @@ namespace IdentitySample
             app.UseRouting();
 
             app.UseAuthentication();
+
+            app.UseUserImmediateActions();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
