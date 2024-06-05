@@ -18,6 +18,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PersianTranslation.Identity;
 using System;
+using IdentitySample.Services;
+using Kaktos.UserImmediateActions.Stores;
 
 
 namespace IdentitySample
@@ -73,7 +75,8 @@ namespace IdentitySample
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders()
                 .AddErrorDescriber<PersianIdentityErrorDescriber>()
-                .AddUserImmediateActions();
+                .AddUserImmediateActions() //sing out
+                .AddPermanentImmediateActionsStore<ApplicationPermanentImmediateActionsStore>(); //zekhirie sazi asli
 
             #endregion
 

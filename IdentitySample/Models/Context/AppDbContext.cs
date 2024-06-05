@@ -14,6 +14,7 @@ namespace IdentitySample.Models.Context
 
         public DbSet<SiteSetting> SiteSettings { get; set; }
 
+        public DbSet<ImmediateAction> ImmediateActions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
