@@ -76,7 +76,7 @@ namespace IdentitySample
                 .AddDefaultTokenProviders()
                 .AddErrorDescriber<PersianIdentityErrorDescriber>()
                 .AddUserImmediateActions() //sing out
-                .AddPermanentImmediateActionsStore<ApplicationPermanentImmediateActionsStore>(); //zekhirie sazi asli
+                .AddPermanentImmediateActionsStore<ApplicationPermanentImmediateActionsStore>(); //zekhirie sazi daemi
 
             #endregion
 
