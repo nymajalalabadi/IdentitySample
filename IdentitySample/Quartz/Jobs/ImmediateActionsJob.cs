@@ -21,6 +21,7 @@ namespace IdentitySample.Quartz.Jobs
         public async Task Execute(IJobExecutionContext context)
         {
             using var scope = _serviceProvider.CreateScope();
+
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
 
             if (await dbContext.ImmediateActions.AnyAsync())
@@ -30,6 +31,7 @@ namespace IdentitySample.Quartz.Jobs
                     .ToListAsync();
 
                 dbContext.RemoveRange(expiredActions);
+
                 await dbContext.SaveChangesAsync();
             }
         }

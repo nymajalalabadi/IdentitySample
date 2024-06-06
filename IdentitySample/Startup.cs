@@ -19,7 +19,12 @@ using Microsoft.Extensions.Hosting;
 using PersianTranslation.Identity;
 using System;
 using IdentitySample.Services;
-using Kaktos.UserImmediateActions.Stores;
+using IdentitySample.Quartz;
+using IdentitySample.Quartz.JobFactories;
+using IdentitySample.Quartz.Jobs;
+using Quartz;
+using Quartz.Impl;
+using Quartz.Spi;
 
 
 namespace IdentitySample
@@ -126,6 +131,15 @@ namespace IdentitySample
             });
 
             services.AddClaimBasedAuthorization();
+
+            // Add quartz services
+            services.AddSingleton<IJobFactory, SingletonJobFactory>();
+            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+            services.AddHostedService<Quartz.QuartzHostedService>();
+            services.AddSingleton<ImmediateActionsJob>();
+            services.AddSingleton(new JobSchedule(
+                jobType: typeof(ImmediateActionsJob),
+                cronExpression: "0 0 0/6 1/1 * ? *"));
 
         }
 
